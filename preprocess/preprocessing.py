@@ -4,6 +4,8 @@ import collections
 from keybert import KeyBERT
 from nltk.corpus import stopwords
 from nltk.tokenize import word_tokenize
+from sklearn.feature_extraction.text import TfidfVectorizer
+
 stop_words = set(stopwords.words('english'))
 
 def get_key_words(doc, n_gram=1):
@@ -117,6 +119,12 @@ def data_preprocess(df, top=4):
     ngram_encode=n_gram_encoding(df, 2)
     ngram_encoded_data = get_encoding(ngram_encode, most_occur_words)
     print(ngram_encoded_data)
+
+    # TF-IDF
+    tfidf = TfidfVectorizer()
+    # get tf-df values
+    tfidf_result = tfidf.fit_transform(df)
+    tfidf_result = tfidf_result.toarray()
 
     # print(filtered_sentence)
     # print(string_without_special_chars)
